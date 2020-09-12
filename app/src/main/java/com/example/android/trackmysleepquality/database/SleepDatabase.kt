@@ -28,14 +28,15 @@ import androidx.room.RoomDatabase
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
+// TODO (01) Create an abstract class that extends RoomDatabase.
 @Database(entities = [SleepNight::class], version = 1, exportSchema = false)
 abstract class SleepDatabase : RoomDatabase() {
-
+    // TODO (02) Declare an abstract value of type SleepDatabaseDao.
     /**
      * Connects the database to the DAO.
      */
     abstract val sleepDatabaseDao: SleepDatabaseDao
-
+    // TODO (03) Declare a companion object.
     /**
      * Define a companion object, this allows us to add functions on the SleepDatabase class.
      *
@@ -43,6 +44,7 @@ abstract class SleepDatabase : RoomDatabase() {
      * a new SleepDatabase.
      */
     companion object {
+        // TODO (04) Declare a @Volatile INSTANCE variable.
         /**
          * INSTANCE will keep a reference to any database returned via getInstance.
          *
@@ -54,7 +56,7 @@ abstract class SleepDatabase : RoomDatabase() {
          */
         @Volatile
         private var INSTANCE: SleepDatabase? = null
-
+        // TODO (05) Define a getInstance() method with a synchronized block.
         /**
          * Helper function to get the database.
          *
@@ -76,6 +78,9 @@ abstract class SleepDatabase : RoomDatabase() {
             // Multiple threads can ask for the database at the same time, ensure we only initialize
             // it once by using synchronized. Only one thread may enter a synchronized block at a
             // time.
+            // TODO (06) Inside the synchronized block:
+            // Check whether the database already exists,
+            // and if it does not, use Room.databaseBuilder to create it.
             synchronized(this) {
                 // Copy the current value of INSTANCE to a local variable so Kotlin can smart cast.
                 // Smart cast is only available to local variables.
